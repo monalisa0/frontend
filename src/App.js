@@ -9,7 +9,8 @@ function App() {
 
     // Fetch tasks from backend
     useEffect(() => {
-        axios.get("http://localhost:5001/tasks")
+        axios.get("https://backend-brio.onrender.com/tasks")
+        //axios.get("http://localhost:5001/tasks")
             .then(response => setTasks(response.data))
             .catch(error => console.error("Error fetching tasks:", error));
     }, []);
@@ -17,7 +18,8 @@ function App() {
     // Create a new task
     const createTask = () => {
         if (!newTask.trim()) return;
-        axios.post("http://localhost:5001/tasks", { title: newTask })
+        //axios.post("http://localhost:5001/tasks", { title: newTask })
+        axios.post("https://backend-brio.onrender.com/tasks", { title: newTask })
             .then(response => {
                 setTasks([...tasks, response.data]);
                 setNewTask(""); 
@@ -27,7 +29,8 @@ function App() {
 
     // Toggle task completion
     const toggleTask = (id, completed) => {
-        axios.put(`http://localhost:5001/tasks/${id}`, { completed: !completed })
+        //axios.put(`http://localhost:5001/tasks/${id}`, { completed: !completed })
+        axios.put(`https://backend-brio.onrender.com/tasks/${id}`, { completed: !completed })
             .then(response => {
                 setTasks(tasks.map(task => task._id === id ? response.data : task));
             })
@@ -43,7 +46,8 @@ function App() {
     // Save edited task
     const saveTask = (id) => {
         if (!editTaskTitle.trim()) return;
-        axios.put(`http://localhost:5001/tasks/${id}`, { title: editTaskTitle })
+        //axios.put(`http://localhost:5001/tasks/${id}`, { title: editTaskTitle })
+        axios.put(`https://backend-brio.onrender.com/tasks/${id}`, { title: editTaskTitle })
             .then(response => {
                 setTasks(tasks.map(task => task._id === id ? response.data : task));
                 setEditTaskId(null);
@@ -65,7 +69,8 @@ function App() {
 
     // Delete a task
     const deleteTask = (id) => {
-        axios.delete(`http://localhost:5001/tasks/${id}`)
+        //axios.delete(`http://localhost:5001/tasks/${id}`)
+        axios.delete(`https://backend-brio.onrender.com/tasks/${id}`)
             .then(() => {
                 setTasks(tasks.filter(task => task._id !== id));
             })
